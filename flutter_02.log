@@ -1,0 +1,72 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter build aar
+
+## exception
+
+NoSuchMethodError: NoSuchMethodError: The method 'reinitialize' was called on null.
+Receiver: null
+Tried calling: reinitialize()
+
+```
+#0      Object.noSuchMethod (dart:core-patch/object_patch.dart:53:5)
+#1      _AndroidBuilderImpl.buildAar (package:flutter_tools/src/android/android_builder.dart:85:18)
+<asynchronous suspension>
+#2      BuildAarCommand.runCommand (package:flutter_tools/src/commands/build_aar.dart:105:26)
+#3      FlutterCommand.verifyThenRunCommand (package:flutter_tools/src/runner/flutter_command.dart:615:18)
+#4      _asyncThenWrapperHelper.<anonymous closure> (dart:async-patch/async_patch.dart:73:64)
+#5      _rootRunUnary (dart:async/zone.dart:1134:38)
+#6      _CustomZone.runUnary (dart:async/zone.dart:1031:19)
+#7      _FutureListener.handleValue (dart:async/future_impl.dart:139:18)
+#8      Future._propagateToListeners.handleValueCallback (dart:async/future_impl.dart:680:45)
+#9      Future._propagateToListeners (dart:async/future_impl.dart:709:32)
+#10     Future._completeWithValue (dart:async/future_impl.dart:524:5)
+#11     Future._asyncComplete.<anonymous closure> (dart:async/future_impl.dart:554:7)
+#12     _rootRun (dart:async/zone.dart:1126:13)
+#13     _CustomZone.run (dart:async/zone.dart:1023:19)
+#14     _CustomZone.runGuarded (dart:async/zone.dart:925:7)
+#15     _CustomZone.bindCallbackGuarded.<anonymous closure> (dart:async/zone.dart:965:23)
+#16     _microtaskLoop (dart:async/schedule_microtask.dart:43:21)
+#17     _startMicrotaskLoop (dart:async/schedule_microtask.dart:52:5)
+#18     _runPendingImmediateCallback (dart:isolate-patch/isolate_patch.dart:118:13)
+#19     _RawReceivePortImpl._handleMessage (dart:isolate-patch/isolate_patch.dart:175:5)
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, v1.12.13+hotfix.5, on Mac OS X 10.14.6 18G2022, locale zh-Hans-CN)
+    [32m•[39m Flutter version 1.12.13+hotfix.5 at /Users/fangbao/Documents/soft/flutter
+    [32m•[39m Framework revision 27321ebbad (5 周前), 2019-12-10 18:15:01 -0800
+    [32m•[39m Engine revision 2994f7e1e6
+    [32m•[39m Dart version 2.7.0
+
+[31m[✗][39m Android toolchain - develop for Android devices
+    [31m✗[39m Unable to locate Android SDK.
+      Install Android Studio from: https://developer.android.com/studio/index.html
+      On first launch it will assist you in installing the Android SDK components.
+      (or visit https://flutter.dev/setup/#android-setup for detailed instructions).
+      If the Android SDK has been installed to a custom location, set ANDROID_HOME to that location.
+      You may also want to add it to your PATH environment variable.
+
+
+[32m[✓][39m Xcode - develop for iOS and macOS (Xcode 11.3)
+    [32m•[39m Xcode at /Applications/Xcode.app/Contents/Developer
+    [32m•[39m Xcode 11.3, Build version 11C29
+    [32m•[39m CocoaPods version 1.8.4
+
+[33m[!][39m Android Studio (not installed)
+    [32m•[39m Android Studio not found; download from https://developer.android.com/studio/index.html
+      (or visit https://flutter.dev/setup/#android-setup for detailed instructions).
+
+[32m[✓][39m VS Code (version 1.41.1)
+    [32m•[39m VS Code at /Applications/Visual Studio Code.app/Contents
+    [32m•[39m Flutter extension version 3.7.1
+
+[32m[✓][39m Connected device (1 available)
+    [32m•[39m iPhone 11 Pro Max • CD3AA1F7-D906-4C98-8F88-EF2C7C8B3AAB • ios • com.apple.CoreSimulator.SimRuntime.iOS-13-3 (simulator)
+
+[33m![39m Doctor found issues in 2 categories.
+```
