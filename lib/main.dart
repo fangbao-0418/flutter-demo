@@ -1,7 +1,8 @@
-import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
+import './routes/home/index.dart';
 import './routes/login.dart';
 import './routes/page1.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: 'entry'),
       routes: {
+        'home': (context) => HomeRoute(),
         'login': (context) => LoginRoute(text: '222'),
         'page1': (context) => Page1Route()
       },
@@ -50,86 +52,48 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  VideoPlayerController _controller;
-
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.network(
-        'http://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-         child: Column(children: <Widget>[
-          RaisedButton(
-            child: Text("login"),
-            onPressed: () {
-              // Navigator.push( context,
-              //   MaterialPageRoute(builder: (context) {
-              //       return LoginRoute(
-              //         text: 'login'
-              //       );
-              //   }));
-              Navigator.pushNamed(context, 'login', arguments: "1");
-            }
-          ),
-          RaisedButton(
-            child: Text("page1"),
-            onPressed: () {
-              // Navigator.push( context,
-              //   MaterialPageRoute(builder: (context) {
-              //       return Page1Route();
-              //   }));
-              Navigator.pushNamed(context, 'page1', arguments: "1");
-            }
-          ),
-         ],),
-      ),
-      floatingActionButton: FloatingActionButton(
-        // onPressed: _incrementCounter,
-        onPressed: () {
-           print(_controller.value.isPlaying);
-           setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: HomeRoute()
     );
+    // return Scaffold(
+    //   appBar: AppBar(
+    //     // Here we take the value from the MyHomePage object that was created by
+    //     // the App.build method, and use it to set our appbar title.
+    //     title: Text(widget.title),
+    //   ),
+    //   body: Center(
+    //     child: HomeRoute(),
+    //   )
+    //   // body: Center(
+    //   //   // Center is a layout widget. It takes a single child and positions it
+    //   //   // in the middle of the parent.
+    //   //   //  child: Column(children: <Widget>[
+    //   //   //   RaisedButton(
+    //   //   //     child: Text("login"),
+    //   //   //     onPressed: () {
+    //   //   //       // Navigator.push( context,
+    //   //   //       //   MaterialPageRoute(builder: (context) {
+    //   //   //       //       return LoginRoute(
+    //   //   //       //         text: 'login'
+    //   //   //       //       );
+    //   //   //       //   }));
+    //   //   //       Navigator.pushNamed(context, 'login', arguments: "1");
+    //   //   //     }
+    //   //   //   ),
+    //   //   //   RaisedButton(
+    //   //   //     child: Text("page1"),
+    //   //   //     onPressed: () {
+    //   //   //       // Navigator.push( context,
+    //   //   //       //   MaterialPageRoute(builder: (context) {
+    //   //   //       //       return Page1Route();
+    //   //   //       //   }));
+    //   //   //       Navigator.pushNamed(context, 'page1', arguments: "1");
+    //   //   //     }
+    //   //   //   ),
+    //   //   //  ],),
+    //   // ),
+    // );
   }
 }

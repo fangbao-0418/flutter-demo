@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:my_flutter/utils/color.dart';
+import '../utils/color.dart';
+import '../utils/navigator.dart';
 class LoginRoute extends StatelessWidget {
   LoginRoute({
     Key key,
@@ -22,9 +25,13 @@ class LoginRoute extends StatelessWidget {
             top: 10.0,
             left: 136,
             child: Listener(
-              child: Text("Your friend"),
+              child: Text(
+                "Your friend",
+                style: TextStyle(color: rgbColor('E60113')),
+              ),
               onPointerDown: (PointerDownEvent event) {
                 print('down');
+                navigator(context, 'login');
               },
               onPointerUp: (PointerUpEvent event) {
                 print('up');
