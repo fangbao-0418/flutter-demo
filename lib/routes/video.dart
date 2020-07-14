@@ -1,7 +1,5 @@
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
-import './routes/login.dart';
-import './routes/page1.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,10 +21,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'entry'),
-      routes: {
-        'login': (context) => LoginRoute(text: '222'),
-        'page1': (context) => Page1Route()
-      },
     );
   }
 }
@@ -92,30 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-         child: Column(children: <Widget>[
-          RaisedButton(
-            child: Text("login"),
-            onPressed: () {
-              // Navigator.push( context,
-              //   MaterialPageRoute(builder: (context) {
-              //       return LoginRoute(
-              //         text: 'login'
-              //       );
-              //   }));
-              Navigator.pushNamed(context, 'login', arguments: "1");
-            }
-          ),
-          RaisedButton(
-            child: Text("page1"),
-            onPressed: () {
-              // Navigator.push( context,
-              //   MaterialPageRoute(builder: (context) {
-              //       return Page1Route();
-              //   }));
-              Navigator.pushNamed(context, 'page1', arguments: "1");
-            }
-          ),
-         ],),
+         child: _controller.value.initialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : Container(),
       ),
       floatingActionButton: FloatingActionButton(
         // onPressed: _incrementCounter,
