@@ -9,17 +9,17 @@ class SliderBar extends StatefulWidget {
 }
 
 class _SliderBarState extends State<SliderBar> {
-  List listData;
+  List listData = [];
   initState () {
     print('init state');
     super.initState();
-    http33.get('https://youxuan-api.hzxituan.com/cweb/product/hotword/list').then((res) {
-      var body = convert.jsonDecode(res.body);
-      var data = body['data'];
-      print('fetch end');
-      setState(() {
-        listData = data;
-      });
+    http.get('https://daily-crm-test.hzxituan.com/order/getOrderTypeList').then((res) {
+      // var body = convert.jsonDecode(res.body);
+      // var data = body['data'];
+      // print('fetch end');
+      // setState(() {
+      //   listData = data;
+      // });
     });
   }
   Widget buildItem () {
