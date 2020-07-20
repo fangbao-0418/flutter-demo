@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter/utils/color.dart';
-import 'dart:convert' as convert;
-import '../../../utils/http.dart';
+import '../api.dart';
 
 class SliderBar extends StatefulWidget {
   @override
@@ -13,13 +12,13 @@ class _SliderBarState extends State<SliderBar> {
   initState () {
     print('init state');
     super.initState();
-    http.get('https://daily-crm-test.hzxituan.com/order/getOrderTypeList').then((res) {
-      // var body = convert.jsonDecode(res.body);
-      // var data = body['data'];
-      // print('fetch end');
-      // setState(() {
-      //   listData = data;
-      // });
+    fetchData(); 
+  }
+  fetchData () {
+    fetchHotWordList().then((res) {
+      setState(() {
+        listData = res;
+      });
     });
   }
   Widget buildItem () {
@@ -50,8 +49,10 @@ class _SliderBarState extends State<SliderBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Scrollbar(
-        child: buildItem(),
+      child: Column(
+        children: <Widget>[
+          buildItem()
+        ],
       ),
     );
   }

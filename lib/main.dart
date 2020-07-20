@@ -2,9 +2,24 @@ import 'package:flutter/material.dart';
 import './routes/home/index.dart';
 import './routes/login.dart';
 import './routes/page1.dart';
+import './utils/http.dart';
+import 'package:dio/adapter.dart';
+import 'dart:io';
 
-
-void main() => runApp(MyApp());
+void main () {
+  dio.options.headers["user-agent"] = "xxx";
+  dio.options.contentType = "text";
+  //  dio.interceptors.add(LogInterceptor());
+  (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+      client.findProxy = (uri) {
+        return "PROXY 192.168.124.10:64151";
+      };
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  };
+  print('main entry');
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

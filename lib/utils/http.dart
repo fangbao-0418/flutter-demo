@@ -1,62 +1,53 @@
-// import 'package:http/http.dart' as rawHttp;
 import 'package:dio/dio.dart';
-import 'package:dio/adapter.dart';
 
+var dio = Dio();
 
-Dio dio = new Dio();
+CancelToken token = CancelToken();
 
-// dio.httpClientAdapter.onHttpClientCreate = (client) {
-//     // client.findProxy = (uri) {
-//     //     //proxy all request to localhost:8888
-//     //     return "PROXY localhost:8888";
-//     // };
-// };
-// dio.HttpClientAdapter
+class Http {
+  Map<String, dynamic> getHeaders([Map<String, String> headers]) {
+    Map<String, dynamic> h = Map();
+    h.addAll({'xt-platform': 'flutter'});
+    if (headers is Map) {
+      h.addAll(headers);
+    }
+    return h;
+  }
 
-// class Http {
-//   Map<String, String> getHeaders ([Map<String, String> headers]) {
-//     Map<String, String> h = Map();
-//     h.addAll({
-//       'token': 'xxx'
-//     });
-//     if (headers is Map) {
-//       h.addAll(headers);
-//     }
-//     dynamic o = {
-//       'a': '222'
-//     };
-//     print(headers);
-//     print(headers is Map);
-//     //
-//     return h;
-//   }
-//   Future<dynamic> fetch (String url, String method, [dynamic body, dynamic config]) {
-//     Map<String, String> headers = this.getHeaders();
-//     Future<dynamic> feature;
-//     // switch (method) {
-//     //   case 'get':
-//     //     feature = rawHttp.get(url, headers: headers);
-//     //     break;
-//     //   case 'post':
-//     //     feature = rawHttp.post(url, headers: headers);
-//     //     break;
-//     // }
-//     switch (method) {
-//       case 'get':
-//         feature = dio.get(url);
-//         break;
-//       case 'post':
-//         feature = dio.post(url);
-//         break;
-//     }
-//     return feature;
-//   }
-//   Future<dynamic> post (String url, dynamic body, config) {
-//     return this.fetch(url, 'post', body, config);
-//   }
-//   Future<dynamic> get (String url, [dynamic data, config]) {
-//      return this.fetch(url, 'get', {}, config);
-//   }
-// }
+  Future<dynamic> fetch(String url,
+      {String method, dynamic data, Map<String, dynamic> headers}) {
+    url = 'https://youxuan-api.hzxituan.com' + url;
+    String contentType = Headers.jsonContentType;
+    Map<String, dynamic> headers = getHeaders();
+    Options options = Options(contentType: contentType, headers: headers);
+    Future<dynamic> feature;
+    switch (method) {
+      case 'get':
+        feature = dio.get(url,
+            cancelToken: token, options: options);
+        break;
+      case 'post':
+        feature = dio.post<dynamic>(url,
+            data: data, cancelToken: token, options: options);
+        break;
+    }
+    return feature.then((res) {
+      dynamic data = res.data;
+      if (data['code'] == '00000' && data['success']) {
+        return data['data'];
+      } else {
+        throw data;
+      }
+    });
+  }
 
-// Http http = Http();
+  Future<dynamic> post(String url, dynamic body, config) {
+    return this.fetch(url, method: 'post');
+  }
+
+  Future<dynamic> get(String url, [dynamic data, config]) {
+    return this.fetch(url, method: 'get');
+  }
+}
+
+Http http = Http();
