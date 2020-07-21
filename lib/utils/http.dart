@@ -14,7 +14,7 @@ class Http {
     return h;
   }
 
-  Future<dynamic> fetch(String url,
+  Future<dynamic> fetch <T> (String url,
       {String method, dynamic data, Map<String, dynamic> headers}) {
     url = 'https://youxuan-api.hzxituan.com' + url;
     String contentType = Headers.jsonContentType;
@@ -31,7 +31,7 @@ class Http {
             data: data, cancelToken: token, options: options);
         break;
     }
-    return feature.then((res) {
+    return feature.then <T> ((res) {
       dynamic data = res.data;
       if (data['code'] == '00000' && data['success']) {
         return data['data'];
@@ -45,7 +45,7 @@ class Http {
     return this.fetch(url, method: 'post');
   }
 
-  Future<dynamic> get(String url, [dynamic data, config]) {
+  Future<dynamic> get <T> (String url, [dynamic data, config]) {
     return this.fetch(url, method: 'get');
   }
 }
