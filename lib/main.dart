@@ -5,6 +5,7 @@ import './routes/page1.dart';
 import './utils/http.dart';
 import 'package:dio/adapter.dart';
 import 'dart:io';
+import './common/global.d.dart';
 
 void main () {
   dio.options.headers["user-agent"] = "xxx";
@@ -18,7 +19,10 @@ void main () {
           (X509Certificate cert, String host, int port) => true;
   };
   print('main entry');
-  runApp(MyApp());
+  Global.init().then((e) {
+    print(Global.name);
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -67,10 +71,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String name = Global.name;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomeRoute()
+      // body: HomeRoute()
+      body: Container(child: Text(name),)
     );
     // return Scaffold(
     //   appBar: AppBar(
