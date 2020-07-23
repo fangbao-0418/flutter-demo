@@ -1,21 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import '../../utils/navigator.dart';
+// import '../../utils/navigator.dart';
 import '../../utils/color.dart';
 import './widgets/scroll_bar.dart';
 import '../../states/share-date.dart';
+import './api.dart';
 
-class HomeRoute extends StatelessWidget {
-  HomeRoute({Key key}) : super(key: key);
+class HomeRoute extends StatefulWidget {
+HomeRoute({Key key}) : super(key: key);
+_HomeRouteState createState () => new _HomeRouteState();
+}
+
+class _HomeRouteState extends State<HomeRoute> {
+  // _HomeRouteState({Key key}) : super(key: key);
+  dynamic data = '';
+  void initState() {
+    super.initState();
+    fetchMagicHome().then((res) {
+      print(res['version']);
+      // setState(() {
+      //   data = res['version'];
+      // });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    // print(data);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: rgbColor('E60113'),
         ),
         body: Container(
             child: (ShareDataWidget(
-                data: 1,
+                data: data,
                 child: (Stack(
                   children: <Widget>[
                     Positioned(

@@ -75,8 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: HomeRoute()
-      body: Container(child: Text(name),)
+      body: HomeRoute()
+      // body: Container(child: Text(name),)
     );
     // return Scaffold(
     //   appBar: AppBar(

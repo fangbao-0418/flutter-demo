@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter/utils/color.dart';
 import '../api.dart';
+import '../../../states/share-date.dart';
 
 class SliderBar extends StatefulWidget {
   @override
@@ -23,7 +24,6 @@ class _SliderBarState extends State<SliderBar> {
   }
   Widget buildItem () {
     List<Widget> tiles = [];
-    print('ssss $listData');
     for (var item in listData) {
       tiles.add(
         Padding(
@@ -48,6 +48,8 @@ class _SliderBarState extends State<SliderBar> {
   }
   @override
   Widget build(BuildContext context) {
+    dynamic data = ShareDataWidget.of(context).data;
+    print(data);
     return Container(
       child: Column(
         children: <Widget>[
